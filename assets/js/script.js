@@ -58,23 +58,25 @@ $(document).ready(function () {
 
         var url = "https://f24h2018.herokuapp.com/api/tracks";
 
-        $.ajax({
-            type: "POST",
-            url: url,
-            beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + userToken); },
-            data : {
-                'name' : 'Track ' + dir +' - '+startSeed.name + ' / ' + endSeed.name,
-                // 'info' : 'TEST TEST TEST',
-                'info' : 'Trajet de '+startSeed.name + ' à ' + endSeed.name,
-                'startSeedId' : startSeedID,
-                'endSeedId' : endSeedID
-            },
-            success: function (data) {
+        /* Uncomment this part if needed */
 
-                if(!back)
-                    createTracks(startSeed,endSeed,true);
-            }
-        });
+        // $.ajax({
+        //     type: "POST",
+        //     url: url,
+        //     beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + userToken); },
+        //     data : {
+        //         'name' : 'Track ' + dir +' - '+startSeed.name + ' / ' + endSeed.name,
+        //         // 'info' : 'TEST TEST TEST',
+        //         'info' : 'Trajet de '+startSeed.name + ' à ' + endSeed.name,
+        //         'startSeedId' : startSeedID,
+        //         'endSeedId' : endSeedID
+        //     },
+        //     success: function (data) {
+        //
+        //         if(!back)
+        //             createTracks(startSeed,endSeed,true);
+        //     }
+        // });
     }
 
     function getSeeds(){
