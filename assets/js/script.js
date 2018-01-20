@@ -64,8 +64,8 @@ $(document).ready(function () {
             beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + userToken); },
             data : {
                 'name' : 'Track ' + dir +' - '+startSeed.name + ' / ' + endSeed.name,
-                'info' : 'TEST TEST TEST',
-                // 'info' : 'Trajet de '+startSeed.name + ' à ' + endSeed.name,
+                // 'info' : 'TEST TEST TEST',
+                'info' : 'Trajet de '+startSeed.name + ' à ' + endSeed.name,
                 'startSeedId' : startSeedID,
                 'endSeedId' : endSeedID
             },
@@ -89,7 +89,6 @@ $(document).ready(function () {
 
                 // Search for the home seed
                 jQuery.each(seeds, function(i, val) {
-                    // console.log(val.name + ' est de type '+val.type+' / coordonnées: '+ getLocation(val));
                     if(val.active === true) {
 
                         if (val.type === "home")
@@ -99,6 +98,7 @@ $(document).ready(function () {
                     }
                 });
 
+                console.log(activeSeeds);
                 jQuery.each(activeSeeds, function (i, val) {
                     createTracks(home, val, false);
                 });
@@ -118,12 +118,28 @@ $(document).ready(function () {
             beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + userToken); },
             success: function(data) {
                 console.log(data);
+                jQuery.each(data, function (i, val) {
+                    getTrackPosition(val);
+                });
             }
         });
     }
 
     function getCoordonates(seed) {
         return seed.location.coordinates;
+    }
+
+    function getTrackPosition(track) {
+        var url = 'https://f24h2018.herokuapp.com/api/tracks/'+track["_id"]+'/positions';
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + userToken); },
+            success: function(data) {
+                console.log(data);
+            }
+        });
     }
 
     /* Main */
